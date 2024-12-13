@@ -1,0 +1,2 @@
+# lingo
+Translation Management Tool
