@@ -12,6 +12,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { Session } from "next-auth";
+import { ProjectSwitcher } from "./project-switcher";
 
 // This is sample data.
 const data = {
@@ -38,13 +39,17 @@ const data = {
 
 export function AppSidebar({
   session,
+  projects,
   ...props
 }: React.ComponentProps<typeof Sidebar> & {
   session: Session;
+  projects: any;
 }) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>{/* <TeamSwitcher teams={data.teams} /> */}</SidebarHeader>
+      <SidebarHeader>
+        <ProjectSwitcher projects={projects} />
+      </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>

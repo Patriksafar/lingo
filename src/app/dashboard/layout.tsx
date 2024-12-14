@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getUserProjects } from "@/actions";
+import { CreateProjectDialog } from "@/components/create-project-dialog";
 
 export default async function Layout({
   children,
@@ -15,18 +16,12 @@ export default async function Layout({
 
   const projects = await getUserProjects();
 
-  console.log(projects);
-
   return (
     <SidebarProvider>
-      <AppSidebar session={session} />
+      <AppSidebar session={session} projects={projects} />
       <SidebarInset>
         {children}
-        {(!projects || projects.length === 0) && (
-          <div className="flex items-center justify-center h-64">
-            <p className="text-lg text-gray-500">No projects yet</p>
-          </div>
-        )}
+        {(!projects || projects.length === 0) && <CreateProjectDialog />}
       </SidebarInset>
     </SidebarProvider>
   );
