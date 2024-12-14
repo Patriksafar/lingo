@@ -1,10 +1,12 @@
 import { createId } from "@paralleldrive/cuid2";
+import { relations } from "drizzle-orm";
 
 import {
   index,
   integer,
   pgTable,
   primaryKey,
+  serial,
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
@@ -85,3 +87,42 @@ export const accounts = pgTable(
     };
   },
 );
+
+export const usersRelations = relations(users, ({ many }) => ({
+  usersToGroups: many(usersToProjects),
+}));
+
+export const projects = pgTable("projects", {
+  id: serial("id").primaryKey(),
+  name: text("name"),
+});
+
+export const projectsRelations = relations(projects, ({ many }) => ({
+  usersToProjects: many(usersToProjects),
+}));
+
+export const usersToProjects = pgTable(
+  "users_to_projects",
+  {
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id),
+    projectId: integer("project_id")
+      .notNull()
+      .references(() => projects.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.projectId] }),
+  }),
+);
+
+export const usersToGroupsRelations = relations(usersToProjects, ({ one }) => ({
+  group: one(projects, {
+    fields: [usersToProjects.projectId],
+    references: [projects.id],
+  }),
+  user: one(users, {
+    fields: [usersToProjects.userId],
+    references: [users.id],
+  }),
+}));
