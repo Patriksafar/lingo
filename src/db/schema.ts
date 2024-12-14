@@ -4,6 +4,7 @@ import { relations } from "drizzle-orm";
 import {
   index,
   integer,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
@@ -130,3 +131,81 @@ export const usersToProjectsRelations = relations(
     }),
   }),
 );
+
+export const translationsKey = pgTable("translationsKey", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  key: text("key").notNull().unique(),
+  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { mode: "date" })
+    .notNull()
+    .$onUpdate(() => new Date()),
+  createdBy: text("createdBy")
+    .notNull()
+    .references(() => users.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  projectId: text("projectId")
+    .notNull()
+    .references(() => projects.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+});
+
+const localeEnum = pgEnum("localeEnum", [
+  "en",
+  "es",
+  "cs",
+  "pl",
+  "fr",
+  "de",
+  "it",
+  "pt",
+]);
+
+export const translationsKeyRelations = relations(
+  translationsKey,
+  ({ one }) => ({
+    projects: one(projects, {
+      fields: [translationsKey.projectId],
+      references: [projects.id],
+    }),
+    users: one(users, {
+      fields: [translationsKey.createdBy],
+      references: [users.id],
+    }),
+  }),
+);
+
+export const translations = pgTable("translations", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  keyId: text("keyId")
+    .notNull()
+    .references(() => translationsKey.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  value: text("value").notNull(),
+  locale: localeEnum("locale").notNull(),
+  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { mode: "date" })
+    .notNull()
+    .$onUpdate(() => new Date()),
+  createdBy: text("createdBy")
+    .notNull()
+    .references(() => users.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  lastUpdatedBy: text("lastUpdatedBy")
+    .notNull()
+    .references(() => users.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+});
