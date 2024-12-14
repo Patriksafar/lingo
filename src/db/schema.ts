@@ -155,7 +155,7 @@ export const translationsKey = pgTable("translationsKey", {
     }),
 });
 
-const localeEnum = pgEnum("localeEnum", [
+export const localeEnum = pgEnum("localeEnum", [
   "en",
   "es",
   "cs",
@@ -191,7 +191,7 @@ export const translations = pgTable("translations", {
       onUpdate: "cascade",
     }),
   value: text("value").notNull(),
-  locale: localeEnum("locale").notNull(),
+  locale: localeEnum(),
   createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updatedAt", { mode: "date" })
     .notNull()

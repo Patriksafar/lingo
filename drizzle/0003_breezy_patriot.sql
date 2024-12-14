@@ -1,8 +1,9 @@
+CREATE TYPE "public"."localeEnum" AS ENUM('en', 'es', 'cs', 'pl', 'fr', 'de', 'it', 'pt');--> statement-breakpoint
 CREATE TABLE "translations" (
 	"id" text PRIMARY KEY NOT NULL,
 	"keyId" text NOT NULL,
 	"value" text NOT NULL,
-	"locale" "localeEnum" NOT NULL,
+	"locale" "localeEnum",
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp NOT NULL,
 	"createdBy" text NOT NULL,

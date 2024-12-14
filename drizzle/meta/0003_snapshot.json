@@ -1,5 +1,5 @@
 {
-  "id": "9c4f26cf-640a-4621-a691-c74c8b1ce992",
+  "id": "e58a2306-2c3c-4265-97b7-69affdff6c3f",
   "prevId": "ec04c58e-2a73-43da-b5b2-b6357cb7cdb8",
   "version": "7",
   "dialect": "postgresql",
@@ -252,7 +252,7 @@
           "type": "localeEnum",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "createdAt": {
           "name": "createdAt",
@@ -603,7 +603,22 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.localeEnum": {
+      "name": "localeEnum",
+      "schema": "public",
+      "values": [
+        "en",
+        "es",
+        "cs",
+        "pl",
+        "fr",
+        "de",
+        "it",
+        "pt"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},
