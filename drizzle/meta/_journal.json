@@ -15,6 +15,13 @@
       "when": 1734195532007,
       "tag": "0001_bent_spitfire",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1734195725065,
+      "tag": "0002_oval_azazel",
+      "breakpoints": true
     }
   ]
 }

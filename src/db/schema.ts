@@ -93,7 +93,9 @@ export const usersRelations = relations(users, ({ many }) => ({
 }));
 
 export const projects = pgTable("projects", {
-  id: serial("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
   name: text("name"),
 });
 
@@ -104,10 +106,10 @@ export const projectsRelations = relations(projects, ({ many }) => ({
 export const usersToProjects = pgTable(
   "users_to_projects",
   {
-    userId: integer("user_id")
+    userId: text("user_id")
       .notNull()
       .references(() => users.id),
-    projectId: integer("project_id")
+    projectId: text("project_id")
       .notNull()
       .references(() => projects.id),
   },
