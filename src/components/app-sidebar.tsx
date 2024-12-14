@@ -1,18 +1,9 @@
 "use client";
 
-import * as React from "react";
-import {
-  AudioWaveform,
-  Frame,
-  GalleryVerticalEnd,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react";
+import { Settings2, SquareTerminal } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -24,18 +15,6 @@ import { Session } from "next-auth";
 
 // This is sample data.
 const data = {
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-  ],
   navMain: [
     {
       title: "Translations",
@@ -55,13 +34,6 @@ const data = {
       ],
     },
   ],
-  projects: [
-    {
-      name: "Trasnlation project #1",
-      url: "#",
-      icon: Frame,
-    },
-  ],
 };
 
 export function AppSidebar({
@@ -72,12 +44,9 @@ export function AppSidebar({
 }) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
-      </SidebarHeader>
+      <SidebarHeader>{/* <TeamSwitcher teams={data.teams} /> */}</SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
         {session?.user && (

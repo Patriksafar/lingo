@@ -6,7 +6,6 @@ import {
   integer,
   pgTable,
   primaryKey,
-  serial,
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
@@ -89,7 +88,7 @@ export const accounts = pgTable(
 );
 
 export const usersRelations = relations(users, ({ many }) => ({
-  usersToGroups: many(usersToProjects),
+  usersToProjects: many(usersToProjects),
 }));
 
 export const projects = pgTable("projects", {
@@ -118,13 +117,16 @@ export const usersToProjects = pgTable(
   }),
 );
 
-export const usersToGroupsRelations = relations(usersToProjects, ({ one }) => ({
-  group: one(projects, {
-    fields: [usersToProjects.projectId],
-    references: [projects.id],
+export const usersToProjectsRelations = relations(
+  usersToProjects,
+  ({ one }) => ({
+    projects: one(projects, {
+      fields: [usersToProjects.projectId],
+      references: [projects.id],
+    }),
+    user: one(users, {
+      fields: [usersToProjects.userId],
+      references: [users.id],
+    }),
   }),
-  user: one(users, {
-    fields: [usersToProjects.userId],
-    references: [users.id],
-  }),
-}));
+);
