@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { SignIn } from "@/components/auth/signin-button";
 import { SignOut } from "@/components/auth/signout-button";
 import UserAvatar from "@/components/user-avatar/user-avatar";
-import Image from "next/image";
+import { Languages } from "lucide-react";
 
 export default async function Home() {
   const session = await auth();
@@ -10,6 +10,9 @@ export default async function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        <div className="border-4 p-1 rounded-lg border-border">
+          <Languages className="size-8" />
+        </div>
         <h1 className="text-3xl sm:text-4xl font-bold text-center sm:text-left">
           Welcome to Lingo!
         </h1>
