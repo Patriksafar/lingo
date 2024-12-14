@@ -9,8 +9,8 @@ We aim to minimize configuration requirements so you can focus on building your 
 ### Tech Stack
 
 - [`shadcn/ui`](https://ui.shadcn.com/): Beautifully designed components that you can copy and paste into your apps. Made with Tailwind CSS. Open source.
-- [Auth.js](https://authjs.dev/): Easy-to-setup authentication for the Web. Open source.
-- [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework packed with classes.
+- [`Auth.js``](https://authjs.dev/): Easy-to-setup authentication for the Web. Open source.
+- [`Tailwind CSS``](https://tailwindcss.com/): A utility-first CSS framework packed with classes.
 
 ### Set Up Your Database
 
