@@ -1,5 +1,5 @@
 {
-  "id": "e58a2306-2c3c-4265-97b7-69affdff6c3f",
+  "id": "4b7b5bb6-a9cd-4d54-8f5d-5df25530ae1f",
   "prevId": "ec04c58e-2a73-43da-b5b2-b6357cb7cdb8",
   "version": "7",
   "dialect": "postgresql",
@@ -282,10 +282,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "translations_keyId_translationsKey_id_fk": {
-          "name": "translations_keyId_translationsKey_id_fk",
+        "translations_keyId_translationsKeys_id_fk": {
+          "name": "translations_keyId_translationsKeys_id_fk",
           "tableFrom": "translations",
-          "tableTo": "translationsKey",
+          "tableTo": "translationsKeys",
           "columnsFrom": [
             "keyId"
           ],
@@ -328,8 +328,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.translationsKey": {
-      "name": "translationsKey",
+    "public.translationsKeys": {
+      "name": "translationsKeys",
       "schema": "",
       "columns": {
         "id": {
@@ -372,9 +372,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "translationsKey_createdBy_users_id_fk": {
-          "name": "translationsKey_createdBy_users_id_fk",
-          "tableFrom": "translationsKey",
+        "translationsKeys_createdBy_users_id_fk": {
+          "name": "translationsKeys_createdBy_users_id_fk",
+          "tableFrom": "translationsKeys",
           "tableTo": "users",
           "columnsFrom": [
             "createdBy"
@@ -385,9 +385,9 @@
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
-        "translationsKey_projectId_projects_id_fk": {
-          "name": "translationsKey_projectId_projects_id_fk",
-          "tableFrom": "translationsKey",
+        "translationsKeys_projectId_projects_id_fk": {
+          "name": "translationsKeys_projectId_projects_id_fk",
+          "tableFrom": "translationsKeys",
           "tableTo": "projects",
           "columnsFrom": [
             "projectId"
@@ -401,8 +401,8 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "translationsKey_key_unique": {
-          "name": "translationsKey_key_unique",
+        "translationsKeys_key_unique": {
+          "name": "translationsKeys_key_unique",
           "nullsNotDistinct": false,
           "columns": [
             "key"

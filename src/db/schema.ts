@@ -132,7 +132,7 @@ export const usersToProjectsRelations = relations(
   }),
 );
 
-export const translationsKey = pgTable("translationsKey", {
+export const translationsKeys = pgTable("translationsKeys", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()),
@@ -166,15 +166,15 @@ export const localeEnum = pgEnum("localeEnum", [
   "pt",
 ]);
 
-export const translationsKeyRelations = relations(
-  translationsKey,
+export const translationsKeysRelations = relations(
+  translationsKeys,
   ({ one }) => ({
     projects: one(projects, {
-      fields: [translationsKey.projectId],
+      fields: [translationsKeys.projectId],
       references: [projects.id],
     }),
     users: one(users, {
-      fields: [translationsKey.createdBy],
+      fields: [translationsKeys.createdBy],
       references: [users.id],
     }),
   }),
@@ -186,7 +186,7 @@ export const translations = pgTable("translations", {
     .$defaultFn(() => createId()),
   keyId: text("keyId")
     .notNull()
-    .references(() => translationsKey.id, {
+    .references(() => translationsKeys.id, {
       onDelete: "cascade",
       onUpdate: "cascade",
     }),
