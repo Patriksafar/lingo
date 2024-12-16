@@ -1,3 +1,5 @@
+"use client";
+
 import { addNewProject } from "@/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,11 +13,18 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import { ReactNode } from "react";
 
-export function CreateProjectDialog() {
+type Props = {
+  children?: ReactNode;
+  onSubmit: (formData: FormData) => Promise<void>;
+};
+export function CreateProjectDialog({ children, onSubmit }: Props) {
   return (
-    <Dialog open={true}>
-      <DialogContent className="sm:max-w-md">
+    <Dialog open={children ? undefined : true}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className="sm:max-w-md" forceMount>
         <DialogHeader>
           <DialogTitle>Create project</DialogTitle>
           <DialogDescription>
@@ -24,8 +33,7 @@ export function CreateProjectDialog() {
         </DialogHeader>
         <form
           action={async (formData) => {
-            "use server";
-            await addNewProject(formData);
+            await onSubmit(formData);
           }}
         >
           <div className="flex items-center space-x-2 mb-2">
