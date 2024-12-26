@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { getProjectTranslations } from "@/actions";
+import { getProjectTranslations, updateTranslation } from "@/actions";
 import { useProjects } from "@/components/project-provider";
+import { Button } from "@/components/ui/button";
 
 interface Translation {
   id: string;
@@ -31,6 +32,7 @@ export function DashboardContent() {
 
   const fetchTranslations = async (projectId: string) => {
     const fetchedTranslations = await getProjectTranslations(projectId);
+    console.log(fetchedTranslations);
     const processedTranslations = fetchedTranslations?.map((translation) => {
       const translationsWithLocales = LOCALES_TO_DISPLAY.map((locale) => {
         const translationForLocale = translation.translations.find(
@@ -72,19 +74,30 @@ export function DashboardContent() {
               <div className="flex gap-1">
                 <Badge>{translation.key}</Badge>
               </div>
-              {translation.translations?.map((translation) => {
-                return (
-                  <div key={translation.locale} className="flex gap-4">
-                    <div className="text-sm font-semibold">
-                      {translation.locale}
+              <form
+                className="flex flex-col gap-4"
+                action={async (formData) => {
+                  await updateTranslation(translation.id, formData);
+                }}
+              >
+                {translation.translations?.map((translation) => {
+                  return (
+                    <div key={translation.locale} className="flex gap-4">
+                      <div className="text-sm font-semibold">
+                        {translation.locale}
+                      </div>
+                      <Textarea
+                        className="text-sm"
+                        name={translation.locale}
+                        defaultValue={translation.value}
+                      />
                     </div>
-                    <Textarea
-                      className="text-sm"
-                      defaultValue={translation.value}
-                    />
-                  </div>
-                );
-              })}
+                  );
+                })}
+                <div className="flex justify-end">
+                  <Button type="submit">Save</Button>
+                </div>
+              </form>
             </div>
           </div>
         ))}
