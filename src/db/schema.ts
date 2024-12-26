@@ -96,7 +96,7 @@ export const projects = pgTable("projects", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()),
-  name: text("name"),
+  name: text("name").notNull(),
 });
 
 export const projectsRelations = relations(projects, ({ many }) => ({
@@ -168,7 +168,7 @@ export const localeEnum = pgEnum("localeEnum", [
 
 export const translationsKeysRelations = relations(
   translationsKeys,
-  ({ one }) => ({
+  ({ one, many }) => ({
     projects: one(projects, {
       fields: [translationsKeys.projectId],
       references: [projects.id],
@@ -177,6 +177,7 @@ export const translationsKeysRelations = relations(
       fields: [translationsKeys.createdBy],
       references: [users.id],
     }),
+    translations: many(translations),
   }),
 );
 
@@ -191,7 +192,7 @@ export const translations = pgTable("translations", {
       onUpdate: "cascade",
     }),
   value: text("value").notNull(),
-  locale: localeEnum(),
+  locale: localeEnum().notNull(),
   createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updatedAt", { mode: "date" })
     .notNull()
@@ -209,3 +210,10 @@ export const translations = pgTable("translations", {
       onUpdate: "cascade",
     }),
 });
+
+export const translationsRelations = relations(translations, ({ one }) => ({
+  translations: one(translationsKeys, {
+    fields: [translations.keyId],
+    references: [translationsKeys.id],
+  }),
+}));

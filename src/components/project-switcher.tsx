@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { ChevronsUpDown, Plus } from "lucide-react";
 
 import {
@@ -18,10 +17,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useProjects } from "./project-provider";
+import { CreateProjectDialog } from "./create-project-dialog";
+import { addNewProject } from "@/actions";
 
-export function ProjectSwitcher({ projects }: { projects: any[] }) {
+export function ProjectSwitcher() {
   const { isMobile } = useSidebar();
-  const [activeTeam, setActiveTeam] = React.useState(projects[0]);
+  const { activeProject, projects, setActiveProject } = useProjects();
 
   return (
     <SidebarMenu>
@@ -37,7 +39,7 @@ export function ProjectSwitcher({ projects }: { projects: any[] }) {
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {activeTeam?.name}
+                  {activeProject?.name}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto" />
@@ -50,12 +52,12 @@ export function ProjectSwitcher({ projects }: { projects: any[] }) {
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Teams
+              Projects
             </DropdownMenuLabel>
             {projects.map((project, index) => (
               <DropdownMenuItem
                 key={project.id}
-                onClick={() => setActiveTeam(project)}
+                onClick={() => setActiveProject(project)}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-sm border">
@@ -66,12 +68,23 @@ export function ProjectSwitcher({ projects }: { projects: any[] }) {
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
-              <div className="flex size-6 items-center justify-center rounded-md border bg-background">
-                <Plus className="size-4" />
-              </div>
-              <div className="font-medium text-muted-foreground">Add team</div>
-            </DropdownMenuItem>
+            <CreateProjectDialog
+              onSubmit={async (formData) => {
+                await addNewProject(formData);
+              }}
+            >
+              <DropdownMenuItem
+                className="gap-2 p-2"
+                onSelect={(e) => e.preventDefault()}
+              >
+                <div className="flex size-6 items-center justify-center rounded-md border bg-background">
+                  <Plus className="size-4" />
+                </div>
+                <div className="font-medium text-muted-foreground">
+                  Add team
+                </div>
+              </DropdownMenuItem>
+            </CreateProjectDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

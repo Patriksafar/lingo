@@ -1,6 +1,6 @@
 {
-  "id": "4b7b5bb6-a9cd-4d54-8f5d-5df25530ae1f",
-  "prevId": "ec04c58e-2a73-43da-b5b2-b6357cb7cdb8",
+  "id": "e2966db1-b4de-4e66-8e25-5e430f7b7318",
+  "prevId": "4b7b5bb6-a9cd-4d54-8f5d-5df25530ae1f",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -115,8 +115,12 @@
           "name": "accounts_userId_users_id_fk",
           "tableFrom": "accounts",
           "tableTo": "users",
-          "columnsFrom": ["userId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         }
@@ -124,7 +128,10 @@
       "compositePrimaryKeys": {
         "accounts_provider_providerAccountId_pk": {
           "name": "accounts_provider_providerAccountId_pk",
-          "columns": ["provider", "providerAccountId"]
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ]
         }
       },
       "uniqueConstraints": {},
@@ -146,7 +153,7 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -202,8 +209,12 @@
           "name": "sessions_userId_users_id_fk",
           "tableFrom": "sessions",
           "tableTo": "users",
-          "columnsFrom": ["userId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         }
@@ -241,7 +252,7 @@
           "type": "localeEnum",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "createdAt": {
           "name": "createdAt",
@@ -275,8 +286,12 @@
           "name": "translations_keyId_translationsKeys_id_fk",
           "tableFrom": "translations",
           "tableTo": "translationsKeys",
-          "columnsFrom": ["keyId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "keyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
@@ -284,8 +299,12 @@
           "name": "translations_createdBy_users_id_fk",
           "tableFrom": "translations",
           "tableTo": "users",
-          "columnsFrom": ["createdBy"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "createdBy"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
@@ -293,8 +312,12 @@
           "name": "translations_lastUpdatedBy_users_id_fk",
           "tableFrom": "translations",
           "tableTo": "users",
-          "columnsFrom": ["lastUpdatedBy"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "lastUpdatedBy"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         }
@@ -353,8 +376,12 @@
           "name": "translationsKeys_createdBy_users_id_fk",
           "tableFrom": "translationsKeys",
           "tableTo": "users",
-          "columnsFrom": ["createdBy"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "createdBy"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
@@ -362,8 +389,12 @@
           "name": "translationsKeys_projectId_projects_id_fk",
           "tableFrom": "translationsKeys",
           "tableTo": "projects",
-          "columnsFrom": ["projectId"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "projectId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "cascade"
         }
@@ -373,7 +404,9 @@
         "translationsKeys_key_unique": {
           "name": "translationsKeys_key_unique",
           "nullsNotDistinct": false,
-          "columns": ["key"]
+          "columns": [
+            "key"
+          ]
         }
       },
       "policies": {},
@@ -453,7 +486,9 @@
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,
-          "columns": ["email"]
+          "columns": [
+            "email"
+          ]
         }
       },
       "policies": {},
@@ -483,8 +518,12 @@
           "name": "users_to_projects_user_id_users_id_fk",
           "tableFrom": "users_to_projects",
           "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -492,8 +531,12 @@
           "name": "users_to_projects_project_id_projects_id_fk",
           "tableFrom": "users_to_projects",
           "tableTo": "projects",
-          "columnsFrom": ["project_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "project_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -501,7 +544,10 @@
       "compositePrimaryKeys": {
         "users_to_projects_user_id_project_id_pk": {
           "name": "users_to_projects_user_id_project_id_pk",
-          "columns": ["user_id", "project_id"]
+          "columns": [
+            "user_id",
+            "project_id"
+          ]
         }
       },
       "uniqueConstraints": {},
@@ -537,14 +583,19 @@
       "compositePrimaryKeys": {
         "verificationTokens_identifier_token_pk": {
           "name": "verificationTokens_identifier_token_pk",
-          "columns": ["identifier", "token"]
+          "columns": [
+            "identifier",
+            "token"
+          ]
         }
       },
       "uniqueConstraints": {
         "verificationTokens_token_unique": {
           "name": "verificationTokens_token_unique",
           "nullsNotDistinct": false,
-          "columns": ["token"]
+          "columns": [
+            "token"
+          ]
         }
       },
       "policies": {},
@@ -556,7 +607,16 @@
     "public.localeEnum": {
       "name": "localeEnum",
       "schema": "public",
-      "values": ["en", "es", "cs", "pl", "fr", "de", "it", "pt"]
+      "values": [
+        "en",
+        "es",
+        "cs",
+        "pl",
+        "fr",
+        "de",
+        "it",
+        "pt"
+      ]
     }
   },
   "schemas": {},
